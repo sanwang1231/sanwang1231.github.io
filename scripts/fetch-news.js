@@ -17,8 +17,6 @@ const KEYWORDS = [
 // 订阅源：想加就往里塞，格式是 [名称, URL]
 const FEEDS = [
   ['人民网时政', 'http://www.people.com.cn/rss/politics.xml'],
-  ['新华网国内', 'http://rss.xinhuanet.com/rss/native.xml'],
-  ['凤凰网大陆', 'http://news.ifeng.com/pubres/rss/mainland/feed.xml']
 ];
 
 function fetch(url) {

@@ -65,15 +65,16 @@
         }
 
         box.innerHTML = list.map(item => `
-          <div class="card">
-            <div class="card-date">${item.date}</div>
-            <h3>${item.title}</h3>
-            <p>${item.summary}</p>
-            <div class="tags">
-              ${item.tags.map(t => `<span>${t}</span>`).join('')}
-            </div>
-          </div>
-        `).join('');
+  <div class="card">
+    <div class="card-date">${item.date}</div>
+    <h3>${item.title}</h3>
+    <p>${item.summary}</p>
+    ${item.link ? `<a href="${item.link}" target="_blank" style="color:#4a7cf7;font-size:14px;">查看全文 →</a>` : ''}
+    <div class="tags">
+      ${item.tags.map(t => `<span>${t}</span>`).join('')}
+    </div>
+  </div>
+`).join('');
 
         document.getElementById('total').textContent = list.length;
       } catch (e) {

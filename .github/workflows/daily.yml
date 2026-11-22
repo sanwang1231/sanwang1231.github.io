@@ -18,7 +18,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 运行生成脚本
+      - name: 抓取时政内容
+        run: node scripts/fetch-news.js
+
+      - name: 发布当日内容
         run: node scripts/daily-push.js
 
       - name: 提交回仓库
@@ -26,5 +29,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/
-          git commit -m "auto: 每日更新 $(date +%F)" || echo "无变更"
+          git commit -m "auto: $(date +%F)" || echo "无变更"
           git push

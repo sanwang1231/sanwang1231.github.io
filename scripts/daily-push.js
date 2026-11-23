@@ -7,13 +7,22 @@ const PENDING = path.join(__dirname, '../data/pending.json');
 const list = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 
 // 北京时间今天
-const today = new Date(Date.now() + 8 * 3600 * 1000)
-  .toISOString().slice(0, 10);
+// ===== 每 2 小时发一条 =====
+const INTERVAL_MS = 2 * 60 * 60 * 1000;
 
-// 今天已发布过就跳过
-if (list.some(i => i.date === today)) {
-  console.log('今天已发布过，跳过');
-  process.exit(0);
+if (news.length > 0) {
+    const last = news[news.length - 1];
+    const lastTime = last.timestamp
+        ? new Date(last.timestamp).getTime()
+        : new Date(last.date).getTime();
+
+    const elapsed = Date.now() - lastTime;
+
+    if (elapsed < INTERVAL_MS) {
+        const remainMin = Math.ceil((INTERVAL_MS - elapsed) / 60000);
+        console.log(`距上次发布仅 ${Math.floor(elapsed / 60000)} 分钟，还需 ${remainMin} 分钟，跳过`);
+        return;
+    }
 }
 
 if (!fs.existsSync(PENDING)) {
